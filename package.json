@@ -4,8 +4,8 @@
   "description": "bad movies practice for junior developers",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "watch": "webpack -d --watch",
+    "start": "nodemon server/index.js"
   },
   "author": "Peter Park",
   "license": "MIT",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
