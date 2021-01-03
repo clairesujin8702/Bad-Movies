@@ -49,9 +49,9 @@ app.get("/genres", function(req, res) {
 app.get("/search", function(req, res) {
   // one genre : get all movie with Name of "genre" from api(https://api.themoviedb.org/3/discover/movie)
   // sort them by votes (worst first) using search parameters in themoviedb API to render web directly not to save it to db
-  console.log("/search : ", req.body)
+  // console.log("/search : ", req.query.genreId)
 
-  Search(req.body.genreId)
+  Search(req.query.genreId)
     .then(movies => res.json(movies))
     .catch(err => console.log(err))
 });
@@ -68,17 +68,17 @@ app.get("/favorites", function(req, res) {
 app.post("/save", function(req, res) {
   //save movie as favorite into the database
   // const {title, overview, poster_path, genre_ids, popularity} = req.body.favoriteMovie
-  console.log("/save : ", req.body)
+  // console.log("/save : ", req.body)
 
   // Create(title, overview, poster_path, genre_ids, popularity)
-  Create(req.body.favoriteMovie)
+  Create(req.body)
     .then(result=> res.status(200).send(result))
     .catch(err => res.status(500).send(err))
 });
 
 app.post("/delete", function(req, res) {
   //remove movie from favorites into the database
-  console.log("/delete : ", req.body)
+  console.log("/delete???? : ", req.body)
 
   Delete( req.body.id )
     .then(result=> res.status(200).send(result))

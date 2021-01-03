@@ -11,7 +11,7 @@ db.connectAsync()
   .then(()=>console.log(`Connected to MySQL database "${myDataBase}"`) )
   .then(()=> db.queryAsync(`CREATE DATABASE IF NOT EXISTS ${myDataBase};`))
   .then(()=> db.queryAsync(`USE ${myDataBase};`))
-  .then(()=> db.queryAsync(`CREATE TABLE IF NOT EXISTS favoriteList(id INT AUTO_INCREMENT, title VARCHAR(50) NOT NULL, overview VARCHAR(500), poster_path VARCHAR(200), genre VARCHAR(50) NOT NULL, vote INT NOT NULL , PRIMARY KEY(id));`))
+  .then(()=> db.queryAsync(`CREATE TABLE IF NOT EXISTS favoriteList(Oid INT AUTO_INCREMENT, title VARCHAR(50) NOT NULL, overview VARCHAR(500), poster_path VARCHAR(200), genre VARCHAR(50) NOT NULL, vote INT NOT NULL , release_date VARCHAR(50) NOT NULL, popularity INT NOT NULL,id INT UNIQUE,PRIMARY KEY(Oid));`))
   .catch((err)=> console.log(err))
 
 const dbMethods ={
@@ -21,7 +21,7 @@ const dbMethods ={
         if(!movieList){
           throw Error( 'no favorite movie listed !' );
         }
-        console.log(movieList[0])
+        // console.log(movieList[0])
         return movieList[0];
       })
       .catch(err=>console.log(err))
@@ -52,14 +52,14 @@ const dbMethods ={
     if(!fMovie){ throw Error( 'Info is invalid, please try again' ); }
     console.log('create : ', fMovie)
 
-    return db.queryAsync( `INSERT INTO favoriteList (title, overview, poster_path, genre, vote) values ("${fMovie.title}","${fMovie.overview}","${fMovie.poster_path}","${fMovie.genre_ids}","${fMovie.popularity}");` )
+    return db.queryAsync( `INSERT INTO favoriteList (title, overview, poster_path, genre, vote,release_date,popularity,id) values ("${fMovie.title}","${fMovie.overview}","${fMovie.poster_path}","${fMovie.genre_ids}","${fMovie.vote_average}","${fMovie.release_date}","${fMovie.popularity}","${fMovie.id}");` )
       .then(()=> {return 'Success to add a movie to favorites!';} )
       .catch(err=> console.log(err))
   },
   Delete : ( id ) => {
     if(!id){ throw Error( 'Info is invalid, please try again' ); }
-
-    return db.queryAsync( `DELETE FROM favoriteList WHERE id = ${id};` )
+console.log('delete  :', id)
+    return db.queryAsync( `DELETE FROM favoriteList WHERE Oid = ${id};` )
     .then(()=> {return 'Success to delete a movie from favorites!';} )
     .catch(err=> console.log(err))
   }
